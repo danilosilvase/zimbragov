@@ -1,0 +1,13 @@
+---
+- name: check packages for updates
+  hosts: zimbra
+  tasks:
+  - name: Perform yum update of all packages
+    yum:
+      name: '*'
+      state: latest
+  - name: install open-vm-tools
+    yum:
+      name: open-vm-tools
+      state: present 
+  - name: 
