@@ -1,0 +1,26 @@
+---
+- hosts: zimbra
+  tasks:
+   - name: Disable SELinux
+     selinux:
+      state: disabled
+
+   - name: upgrade all packages
+     yum:
+       name: '*'
+       state: latest
+
+   - name: ensure a list of packages installed
+     yum:
+       name: "{{ packages }}"
+     vars:
+       packages:
+       - telnet
+       - nano
+
+#   - name: install basic
+#     yum:
+#      state: present
+#      name:
+#      - telnet
+#      - htop
