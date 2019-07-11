@@ -1,0 +1,46 @@
+### Upgrade kernel Centos 7 with yum and elrepo
+
+---
+ - hosts: zimbra
+   tasks:
+
+   - yum_repository:
+       name: 1 - download repository
+       description: Kernel repository
+       baseurl: http://elrepo.org/linux/kernel/el7/x86_64/
+       gpgkey: https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+  
+   - name: 2. install elrepo repo
+     yum:
+       name:  http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+       state: present 
+
+   - name: 3. Installl kernel
+     yum:
+       name:
+        - kernel-ml 
+       enablerepo: elrepo-kernel
+       state: latest
+
+   - name: 4. Restart machine
+     shell: sleep 2 && shutdown -r +1 "Ansible updates triggered"
+     async: 1
+     poll: 0
+     ignore_errors: true
+
+   - name: 4. update kernel boot order
+     replace: 
+       path: /etc/default/grub
+       backup: yes
+       regexp: '^GRUB_DEFAULT=saved$' 
+       replace: 'GRUB_DEFAULT=0'
+     register: replace_result
+
+   - name: 5. rebuild grub after kernel boot order change
+     command: /sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+     when: replace_result.changed
+
+   - name: confirm kernel version
+     shell: uname -a
+     register: kernel_version
+

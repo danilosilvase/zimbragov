@@ -1,0 +1,6 @@
+---
+- hosts: zimbra
+  tasks:
+   - name: Disable SELinux
+     selinux:
+     state: disabled
