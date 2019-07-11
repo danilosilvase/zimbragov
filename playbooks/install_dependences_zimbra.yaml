@@ -49,3 +49,7 @@
        regexp: '^ServerActive=127.0.0.1'
        line: Server=172.28.64.110
 
+   - name: Reinicar serviço zabbix-agent
+     systemd:
+       state: restarted
+       name: zabbix-agent
