@@ -8,6 +8,6 @@
       state: latest
   - name: install open-vm-tools
     yum:
-      name: open-vm-tools
+      name: net-tools
       state: present 
-  - name: 
+ 
