@@ -1,0 +1,16 @@
+---
+ - hosts: zimbra
+   tasks:
+#   - name: Baixando Zimbra
+#     get_url: 
+#       url: https://files.zimbra.com/downloads/8.8.12_GA/zcs-8.8.12_GA_3794.RHEL7_64.20190329045002.tgz
+#       dest: /opt
+#       mode: '0755'
+
+   - name: Baixando e Descompactando arquivos
+     unarchive:
+       src: https://expresso.se.gov.br/divulgacao/zcs-8.8.12_GA_3794.RHEL7_64.20190329045002.tgz
+#       src: /opt/zcs-8.8.12_GA_3794.RHEL7_64.20190329045002.tgz
+       dest: /opt/       
+       remote_src: yes 
+       validate_certs: no
