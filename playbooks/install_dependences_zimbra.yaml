@@ -35,6 +35,7 @@
          - zabbix-agent
          - imapsync
          - openldap-clients
+         - git
        state: present
 
    - name: Configure Zabbix
