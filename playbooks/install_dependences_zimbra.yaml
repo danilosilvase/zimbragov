@@ -32,11 +32,10 @@
          - nmap-ncat
          - libstdc++.so.6 
          - wget
-         - zabbix-agent
          - imapsync
          - openldap-clients
          - git
-       state: present
+       state: latest
 
    - name: Configure Zabbix
      lineinfile:
